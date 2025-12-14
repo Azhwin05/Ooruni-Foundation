@@ -1,0 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Catamaran:wght@100..900&family=Inter:wght@100..900&family=Kavivanar&family=Noto+Sans+Tamil:wght@100..900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans text-gray-800 bg-gray-50;
+    cursor: none; /* Hide default cursor */
+    user-select: none; /* Prevent text selection */
+    -webkit-user-select: none;
+  }
+  
+  img {
+    -webkit-user-drag: none; /* Prevent image dragging */
+    user-select: none;
+    pointer-events: none; /* Prevent right click on images specifically if context menu isn't caught, though we will catch it globally */
+  }
+  
+  /* Ensure all interactive elements also have no cursor */
+  a, button, input, textarea, select, [role="button"] {
+    cursor: none !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold text-gray-900;
+  }
+}

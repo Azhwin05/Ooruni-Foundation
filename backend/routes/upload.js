@@ -23,14 +23,25 @@ const storage = new CloudinaryStorage({
 const upload = multer({ storage: storage });
 
 // UPLOAD ENDPOINT
-router.post('/', upload.single('file'), (req, res) => {
-    try {
-        // Cloudinary returns the URL in req.file.path
+// UPLOAD ENDPOINT (With Error Handling)
+router.post('/', (req, res) => {
+    upload.single('file')(req, res, (err) => {
+        if (err) {
+            // Catch Multer/Cloudinary Errors
+            console.error("Upload Error:", err);
+            return res.status(500).json({ 
+                error: "Image Upload Failed", 
+                details: err.message, 
+                code: err.code 
+            });
+        }
+        
+        // Success
+        if (!req.file) {
+            return res.status(400).json({ error: "No file provided" });
+        }
         res.status(200).json(req.file.path);
-    } catch (err) {
-        console.error("Upload Error:", err);
-        res.status(500).json(err);
-    }
+    });
 });
 
 module.exports = router;
